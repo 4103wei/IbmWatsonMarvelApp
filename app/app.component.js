@@ -9,32 +9,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var hero_service_1 = require('./hero.service');
-var heroes_component_1 = require('./heroes.component');
-var dashboard_component_1 = require('./dashboard.component');
+var home_component_1 = require('./home.component');
+var askwatson_component_1 = require('./askwatson.component');
+var addquestions_component_1 = require('./addquestions.component');
+var highscore_component_1 = require('./highscore.component');
+var whoami_component_1 = require('./whoami.component');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'Tour of Heroes';
+        this.title = "Marvel QA";
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n            <h1>{{title}}</h1>\n            <nav>\n            <a [routerLink]=\"['Dashboard']\">Dashboard</a>\n            <a [routerLink]=\"['Heroes']\">Heroes</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
+            template: "\n            <h1>{{title}}</h1>\n            <nav>\n            <a [routerLink]=\"['Home']\">Home</a>\n            <a [routerLink]=\"['Ask_watson']\">Ask Watson</a>\n            <a [routerLink]=\"['Add_questions']\">Add Questions</a>\n            <a [routerLink]=\"['Highscore']\">Highscore</a>\n            <a [routerLink]=\"['Who_am_i']\">Who Am I?</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
-            providers: [router_deprecated_1.ROUTER_PROVIDERS, hero_service_1.HeroService]
+            providers: [router_deprecated_1.ROUTER_PROVIDERS]
         }),
         router_deprecated_1.RouteConfig([
             {
-                path: '/dashboard',
-                name: 'Dashboard',
-                component: dashboard_component_1.DashboardComponent,
+                path: '/home',
+                name: 'Home',
+                component: home_component_1.HomeComponent,
                 useAsDefault: true
             },
             {
-                path: '/heroes',
-                name: 'Heroes',
-                component: heroes_component_1.HeroesComponent
+                path: '/ask_watson',
+                name: 'Ask_watson',
+                component: askwatson_component_1.AskWatsonComponent
+            },
+            {
+                path: '/add_questions',
+                name: 'Add_questions',
+                component: addquestions_component_1.AddQuestionsComponent
+            },
+            {
+                path: '/highscore',
+                name: 'Highscore',
+                component: highscore_component_1.HighscoreComponent
+            },
+            {
+                path: '/who_am_i',
+                name: 'Who_am_i',
+                component: whoami_component_1.WhoAmIComponent
             }
         ]), 
         __metadata('design:paramtypes', [])

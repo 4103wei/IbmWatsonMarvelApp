@@ -9,25 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_heroes_1 = require('./mock-heroes');
-var HeroService = (function () {
-    function HeroService() {
+var WhoAmIComponent = (function () {
+    function WhoAmIComponent() {
     }
-    HeroService.prototype.getHeroes = function () {
-        return Promise.resolve(mock_heroes_1.HEROES);
-    };
-    HeroService.prototype.getHeroesSlowly = function () {
-        return new Promise(function (resolve) {
-            return setTimeout(function () { return resolve(mock_heroes_1.HEROES); }, 2000);
-        } // 2 seconds
-         // 2 seconds
-        );
-    };
-    HeroService = __decorate([
-        core_1.Injectable(), 
+    WhoAmIComponent = __decorate([
+        core_1.Component({
+            selector: 'home',
+            templateUrl: 'app/html/whoami.component.html'
+        }), 
         __metadata('design:paramtypes', [])
-    ], HeroService);
-    return HeroService;
+    ], WhoAmIComponent);
+    return WhoAmIComponent;
 }());
-exports.HeroService = HeroService;
-//# sourceMappingURL=hero.service.js.map
+exports.WhoAmIComponent = WhoAmIComponent;
+//# sourceMappingURL=whoami.component.js.map
