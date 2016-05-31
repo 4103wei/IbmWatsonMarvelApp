@@ -1,8 +1,14 @@
 <div class="content">
 
-<h3>Ask Watson</h3>
-
-    
-<input [(ngModel)]="asd" placeholder="Your Question">
-
+    <h3>Ask Watson</h3>
+    Ask Watson is an application that uses an IBM Watson instance to answer any question regarding the marvel cinematic universe. 
+    For the training we used the data from the <a target='_blank' href='http://marvelcinematicuniverse.wikia.com/wiki/Marvel_Cinematic_Universe_Wiki'>marvel cinematic universe wikia</a>.
+    <br><br>
+    <div class='ask_watson_question'>{{view_question}}</div>
+    <br>
+    <div class='ask_watson_answer'>{{view_answer}}</div>
+    <br><br>
+    <form>
+        <input class='askWatsonBox' [(ngModel)]='question' type=text placeholder="Your Question" (keypress)="eventHandler($event.keyCode)">
+    </form>
 </div>

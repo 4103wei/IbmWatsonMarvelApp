@@ -11,7 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var AskWatsonComponent = (function () {
     function AskWatsonComponent() {
+        this.question = '';
+        this.view_question = '';
+        this.view_answer = '';
     }
+    AskWatsonComponent.prototype.eventHandler = function (key) {
+        if (key == 13) {
+            this.view_question = this.question;
+            this.view_answer = this.reqAns(this.question);
+            this.question = '';
+        }
+    };
+    AskWatsonComponent.prototype.reqAns = function (question) {
+        // TODO: watson does something with the question
+        // this.view_answer = ...
+        if (question == '') {
+            return '';
+        }
+        else {
+            return "this.view_answer";
+        }
+    };
     AskWatsonComponent = __decorate([
         core_1.Component({
             selector: 'home',
