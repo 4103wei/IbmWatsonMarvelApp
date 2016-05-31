@@ -14,6 +14,8 @@ var askwatson_component_1 = require('./askwatson.component');
 var addquestions_component_1 = require('./addquestions.component');
 var highscore_component_1 = require('./highscore.component');
 var whoami_component_1 = require('./whoami.component');
+var login_component_1 = require('./login.component');
+var signup_component_1 = require('./signup.component');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var AppComponent = (function () {
     function AppComponent() {
@@ -22,7 +24,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n            <h1>{{title}}</h1>\n            <nav>\n            <a [routerLink]=\"['Home']\">Home</a>\n            <a [routerLink]=\"['Ask_watson']\">Ask Watson</a>\n            <a [routerLink]=\"['Add_questions']\">Add Questions</a>\n            <a [routerLink]=\"['Highscore']\">Highscore</a>\n            <a [routerLink]=\"['Who_am_i']\">Who Am I?</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
+            template: "\n            <h1>{{title}}</h1>\n            <nav>\n            <a [routerLink]=\"['Home']\">Home</a>\n            <a [routerLink]=\"['Ask_watson']\">Ask Watson</a>\n            <a [routerLink]=\"['Add_questions']\">Add Questions</a>\n            <a [routerLink]=\"['Highscore']\">Highscore</a>\n            <a [routerLink]=\"['Who_am_i']\">Who Am I?</a>\n            <a [routerLink]=\"['Login']\">Log In</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [router_deprecated_1.ROUTER_PROVIDERS]
         }),
@@ -52,6 +54,16 @@ var AppComponent = (function () {
                 path: '/who_am_i',
                 name: 'Who_am_i',
                 component: whoami_component_1.WhoAmIComponent
+            },
+            {
+                path: '/login',
+                name: 'Login',
+                component: login_component_1.LoginComponent
+            },
+            {
+                path: '/signup',
+                name: 'Signup',
+                component: signup_component_1.SignupComponent
             }
         ]), 
         __metadata('design:paramtypes', [])

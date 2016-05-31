@@ -1,0 +1,9 @@
+<div class="content">
+<h3>Create Account</h3>
+    <form [ngFormModel]="signupForm" (submit)="doSignup(signupForm.value)">
+        <input ngControl="email" type="email" placeholder="Your email"><br>
+        <input ngControl="password" type="password" placeholder="Your password">
+        <br><br>
+        <button type="submit">Create Account</button>
+    </form>
+</div>

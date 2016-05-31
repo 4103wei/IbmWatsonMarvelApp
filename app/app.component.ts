@@ -4,6 +4,8 @@ import { AskWatsonComponent } from './askwatson.component';
 import { AddQuestionsComponent } from './addquestions.component';
 import { HighscoreComponent } from './highscore.component';
 import { WhoAmIComponent } from './whoami.component';
+import { LoginComponent } from './login.component';
+import { SignupComponent } from './signup.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
 
@@ -18,6 +20,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
             <a [routerLink]="['Add_questions']">Add Questions</a>
             <a [routerLink]="['Highscore']">Highscore</a>
             <a [routerLink]="['Who_am_i']">Who Am I?</a>
+            <a [routerLink]="['Login']">Log In</a>
             </nav>
             <router-outlet></router-outlet>
             `,
@@ -51,6 +54,16 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
         path: '/who_am_i',
         name: 'Who_am_i',
         component: WhoAmIComponent
+        },
+        {
+        path: '/login',
+        name: 'Login',
+        component: LoginComponent
+        },
+        {
+        path: '/signup',
+        name: 'Signup',
+        component: SignupComponent
         }
 
 ])
