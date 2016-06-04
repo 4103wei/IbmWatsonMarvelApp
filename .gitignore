@@ -1,7 +1,3 @@
 node_modules/
 typings/
 *.log
-systemjs.config.js
-tsconfig.json
-typings.json
-package.json
