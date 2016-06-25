@@ -17,8 +17,8 @@ var HTTPService = (function () {
     function HTTPService(http) {
         this.http = http;
     }
-    /*
-    postJSON(){
+    HTTPService.prototype.postJSON = function () {
+        /*
         var json = JSON.stringify({"question":{"questionText" : "Who is Nick fury?"}});
         var params = 'json=' + json;
         var headers = new Headers();
@@ -29,17 +29,25 @@ var HTTPService = (function () {
         headers.append('Authorization','Basic dHVkX21hbmFnZXIxOldtc1dpZW1j');
         
         headers.append('Authorization', 'Basic ' + btoa('tud_manager1:WmsWiemc'));
-        return this._http.post('https://watson-wdc01.ihost.com/instance/518/deepqa/v1/question',params,{headers: headers}).map(res => res.json())
-    }*/
-    HTTPService.prototype.test = function () {
-        /*
-        var json = JSON.stringify({var1: 'test', var2: 3});
+        return this.http.post('https://watson-wdc01.ihost.com/instance/518/deepqa/v1/question',params,{headers: headers}).map(res => res.json())*/
+    };
+    HTTPService.prototype.getJSON = function () {
+        var json = JSON.stringify({ var1: 'test', var2: 3 });
         var params = 'json=' + json;
-        var headers = new Headers();
-        headers.append('Content-Type','application/x-www-form-urlencoded');
-        return this.http.post('http://validate.jsontest.com',params,{headers: headers}).map(res => res.json())
-        */
-        return this.http.get('http://jsonplaceholder.typicode.com/posts/1').map(function (res) { return res.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        return this.http.post('http://validate.jsontest.com', params, { headers: headers });
+        //return this.http.get('http://jsonplaceholder.typicode.com/posts/1');
+    };
+    HTTPService.prototype.test = function () {
+        var params = JSON.stringify({ question: { questionText: 'Who is Nick fury?' } });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Basic dHVkX21hbmFnZXIxOldtc1dpZW1j');
+        headers.append('X-SyncTimeout', '30');
+        headers.append('Accept', 'application/json');
+        headers.append('Cache-Control', 'no-cache');
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('https://watson-wdc01.ihost.com/instance/518/deepqa/v1/question', params, { headers: headers });
     };
     HTTPService = __decorate([
         core_1.Injectable(), 
@@ -63,15 +71,12 @@ var AskWatsonComponent = (function () {
         }
     };
     AskWatsonComponent.prototype.reqAns = function (question) {
-        // TODO: watson does something with the question
-        // this.view_answer = ...
         var _this = this;
         if (question == '') {
             return '';
         }
         else {
-            this.httpService.test()
-                .subscribe(function (data) { return _this.view_answer = JSON.stringify(data); }, function (error) { return alert(error); }, function () { return console.log("finished"); });
+            this.httpService.getJSON().map(function (res) { return res.json(); }).subscribe(function (data) { return _this.view_answer = JSON.stringify(data); }, function (error) { return _this.view_answer = JSON.stringify(error); }, function () { return console.log('Authentication Complete'); });
         }
     };
     AskWatsonComponent = __decorate([
