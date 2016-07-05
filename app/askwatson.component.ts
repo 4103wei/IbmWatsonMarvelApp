@@ -5,13 +5,17 @@
 import {Component, enableProdMode, Injectable, OnInit} from '@angular/core';
 import {Http, Headers, HTTP_PROVIDERS, URLSearchParams,RequestOptions, Request, RequestMethod, Response} from '@angular/http';
 import "rxjs/add/operator/map";
+
+import 'rxjs/add/operator/mergeMap';
+
 @Injectable()
 class HTTPService{
     
     constructor (private http: Http) {}
     
+    /*
     postJSON(){
-        /*
+        
         var json = JSON.stringify({"question":{"questionText" : "Who is Nick fury?"}});
         var params = 'json=' + json;
         var headers = new Headers();   
@@ -22,11 +26,8 @@ class HTTPService{
         headers.append('Authorization','Basic dHVkX21hbmFnZXIxOldtc1dpZW1j');
         
         headers.append('Authorization', 'Basic ' + btoa('tud_manager1:WmsWiemc'));
-        return this.http.post('https://watson-wdc01.ihost.com/instance/518/deepqa/v1/question',params,{headers: headers}).map(res => res.json())*/
-    }
-    
-
-    
+        return this.http.post('https://watson-wdc01.ihost.com/instance/518/deepqa/v1/question',params,{headers: headers}).map(res => res.json())
+    }  
     postJSON_tutorial(){
         // test method for post request
         // works perfectly fine
@@ -48,7 +49,7 @@ class HTTPService{
         // works perfectly fine
         return this.http.get('http://jsonplaceholder.typicode.com/posts/1')
     }
-    
+    */
     
     test(question){ 
         var params = question;
@@ -57,19 +58,12 @@ class HTTPService{
         headers.append('Filepath', 'C:/Users/shameless/Desktop/angular2-tour-of-heroes/response.json');
         
         
-        this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/submit/postQuestion',params,{headers: headers})
-        .map(res => res.json()).subscribe();
-        
-        return this.http.get('./response.json')
-      
+        return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/submit/postQuestion',params,{headers: headers})
+        .map(res => {})
+            .flatMap(() => this.http.get('./response.json'))    
     }
     
-    readResponse(){
-        return this.http.get('./response.json')
-    }
-        
-     
-    
+ 
 }
 
 
@@ -85,8 +79,8 @@ class HTTPService{
 
 export class AskWatsonComponent {
     question = '';
-    view_question = '';
-    view_answer = '';
+    view_question = '...';
+    view_answer = '...';
     
     
     constructor(private httpService: HTTPService){}
@@ -103,8 +97,11 @@ export class AskWatsonComponent {
     
     reqAns(question){
         if (question == ''){ 
-            return ''
+            this.view_question = '...';
+            this.view_answer = '...';
         }else{
+            
+            this.view_answer = 'thinking...';
             this.httpService.test(question).map(res => res.json()).subscribe(
                 res => this.view_answer = JSON.stringify(res.question.evidencelist[0].text),
                 err => this.view_answer = "error:" + JSON.stringify(err),

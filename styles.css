@@ -82,19 +82,29 @@ nav a.router-link-active {
 .ask_watson_question, .ask_watson_answer
 {
     position: relative;
-    padding: 0px;
+    padding: 10px;
 
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
     text-align: center;
-    line-height: 80px;
+
 }
+
+@keyframes example {
+    0%   {background-color: orange;}
+    50%  {background-color: yellow;}
+    100%   {background-color: orange;}
+}
+
 .ask_watson_question{
-    background: #FFFF97;
+    background-color: orange;
 }
 
 .ask_watson_answer
 {
-    background: #FF927A;
+    background-color: red;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
 }
