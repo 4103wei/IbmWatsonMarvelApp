@@ -19,7 +19,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
             <a [routerLink]="['Ask_watson']">Ask Watson</a>
             <a [routerLink]="['Add_questions']">Add Questions</a>
             <a [routerLink]="['Highscore']">Highscore</a>
-            <a [routerLink]="['Who_am_i']">Who Am I?</a>
+            <a [routerLink]="['Who_am_i']">Marvel Quiz</a>
             <a [routerLink]="['Login']">Log In</a>
             </nav>
             <router-outlet></router-outlet>

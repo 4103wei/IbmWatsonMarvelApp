@@ -10,7 +10,7 @@ export class WhoAmIComponent {
 
     
     startTimer() {
-        document.getElementById("gamewindow").innerHTML = "<div id ='delay'>GET READY...</div>";
+        document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
         setTimeout(initQuestions, 2000);
     }
 

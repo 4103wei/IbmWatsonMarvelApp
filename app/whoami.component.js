@@ -13,7 +13,7 @@ var WhoAmIComponent = (function () {
     function WhoAmIComponent() {
     }
     WhoAmIComponent.prototype.startTimer = function () {
-        document.getElementById("gamewindow").innerHTML = "<div id ='delay'>GET READY...</div>";
+        document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
         setTimeout(initQuestions, 2000);
     };
     WhoAmIComponent = __decorate([
