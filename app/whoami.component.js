@@ -14,7 +14,7 @@ var WhoAmIComponent = (function () {
     }
     WhoAmIComponent.prototype.startTimer = function () {
         document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
-        setTimeout(this.initQuestions(), 500);
+        setTimeout(this.initQuestions, 2000);
     };
     WhoAmIComponent.prototype.initQuestions = function () {
         //TODO: Generate Question
