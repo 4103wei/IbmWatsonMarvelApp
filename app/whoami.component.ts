@@ -7,43 +7,73 @@ import { Component, OnInit  } from '@angular/core';
 })
 export class WhoAmIComponent {
 
-
-    
     startTimer() {
+        
         document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
-        setTimeout(initQuestions, 2000);
+        setTimeout(this.initQuestions(), 500);
     }
 
-    function initQuestions() {
+    initQuestions() {
         //TODO: Generate Question
-        var question = 'What is the real name of Black Widow?';
         //TODO: Fetch 4 answers from Watson
-        var answers = ['Peter Parker', 'Natalia Alianovna', 'Anthony Edward Stark', 'Wanda Maximoff']; 
+        var question = '';  
+        var answers = ['', '', '', '']; 
+        var question_count = 0;
+        var maximum_question_count = 15;
+        var answers_given = [];
         
         
-        document.getElementById("gamewindow").innerHTML = "<center><div id=question></div><br>\
-        <button class='button' id='ans1'>Answer 1</button>\
-        <button class='button' id='ans2'>Answer 2</button>\
-        <button class='button' id='ans3'>Answer 3</button>\
-        <button class='button' id='ans4'>Answer 4</button></center>";
-        document.getElementById("ans1").onclick=function(){answerhandler(1);};
-        document.getElementById("ans2").onclick=function(){answerhandler(2);};
-        document.getElementById("ans3").onclick=function(){answerhandler(3);};
-        document.getElementById("ans4").onclick=function(){answerhandler(4);};
         
-        document.getElementById("question").innerHTML = question;
-        document.getElementById("ans1").innerHTML = answers[0];
-        document.getElementById("ans2").innerHTML = answers[1];
-        document.getElementById("ans3").innerHTML = answers[2];
-        document.getElementById("ans4").innerHTML = answers[3];
+        var next = function(ans){
+                        question_count = question_count + 1;
+                        if (question_count > maximum_question_count){
+                            document.getElementById("gamewindow").innerHTML = 
+                                "Your answers: " + answers_given + "<br>Some stats<br>\
+                                <button class='button' id='pa'>Play Again (TODO)</button>";
+                            
+                            document.getElementById("pa").onclick= function(){alert("To be implemented")};
+                        }else{
+                            if(ans != -1){
+                                // TODO ------- save answer
+                                answers_given.push(ans);
+                            }
+
+
+
+
+
+                            // TODO ------- fetch question + answers
+                            answers = ['Peter Parker', 'Natalia Alianovna', 'Anthony Edward Stark', 'Wanda Maximoff']; 
+                            question = 'What is the real name of Black Widow?';  
+                            if (question_count % 2 == 0){
+                            answers = ['45', '27', '38', '22']; 
+                            question = 'How old is Hawkeye?';  
+                            }
+                            //------------------
+
+                            document.getElementById("question_num").innerHTML = question_count.toString() + " of " + maximum_question_count.toString();
+                            document.getElementById("question").innerHTML = question;
+                            document.getElementById("ans1").innerHTML = answers[0];
+                            document.getElementById("ans2").innerHTML = answers[1];
+                            document.getElementById("ans3").innerHTML = answers[2];
+                            document.getElementById("ans4").innerHTML = answers[3];
+
+                        }
+                    }   
+        
+        document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
+        <button class='button' id='ans1'></button>\
+        <button class='button' id='ans2'></button>\
+        <button class='button' id='ans3'></button>\
+        <button class='button' id='ans4'></button></center>";
+        
+        document.getElementById("ans1").onclick= function(){next(1)};
+        document.getElementById("ans2").onclick= function(){next(2)};
+        document.getElementById("ans3").onclick= function(){next(3)};
+        document.getElementById("ans4").onclick= function(){next(4)};
+        
+        next(-1);
     }
-    
-    function answerhandler(answer){
-        // answer should be saved for the evaluation at the end
-        alert(answer);
-        
-        // generate new question
-        initQuestions();
-    }
+
 }
 
