@@ -9,13 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+require("rxjs/add/operator/map");
+require('rxjs/add/operator/mergeMap');
+var http_service_1 = require('./http.service');
 var WhoAmIComponent = (function () {
-    function WhoAmIComponent() {
+    function WhoAmIComponent(httpService) {
+        this.httpService = httpService;
     }
+    /* Do a http GET request to fetch the question needed for the quiz
+     * The result should be in JSON format
+     */
+    WhoAmIComponent.prototype.fetchQuestion = function () {
+        this.httpService.get_question_watson().map(function (res) { return res.text(); }).subscribe(function (res) { return alert(res); }, function (err) { return alert("error"); }, function () { return console.log('Completed'); });
+    };
+    /* Start a timer, the game starts after the countdown.
+     */
     WhoAmIComponent.prototype.startTimer = function () {
         document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
         setTimeout(this.initQuestions, 2000);
     };
+    /* Game logic
+     */
     WhoAmIComponent.prototype.initQuestions = function () {
         //TODO: Generate Question
         //TODO: Fetch 4 answers from Watson
@@ -67,9 +82,10 @@ var WhoAmIComponent = (function () {
     WhoAmIComponent = __decorate([
         core_1.Component({
             selector: 'home',
-            templateUrl: 'app/html/whoami.component.html'
+            templateUrl: 'app/html/whoami.component.html',
+            providers: [http_1.HTTP_PROVIDERS, http_service_1.HTTPService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_service_1.HTTPService])
     ], WhoAmIComponent);
     return WhoAmIComponent;
 }());
