@@ -68,6 +68,14 @@ var HTTPService = (function () {
     HTTPService.prototype.get_question_watson = function () {
         return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/requestQuestions');
     };
+    /* http POST request to add a question to the db
+     */
+    HTTPService.prototype.add_question_to_db = function (question) {
+        var params = question;
+        var headers = new http_1.Headers();
+        return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingQuestions', params, { headers: headers })
+            .map(function (res) { });
+    };
     HTTPService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

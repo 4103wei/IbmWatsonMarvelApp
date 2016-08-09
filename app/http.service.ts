@@ -63,4 +63,15 @@ export class HTTPService{
     get_question_watson(){
         return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/requestQuestions')
     }
+    
+    
+    /* http POST request to add a question to the db
+     */
+    add_question_to_db(question){ 
+        var params = question;
+        var headers = new Headers(); 
+        return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingQuestions',params,{headers: headers})
+        .map(res => {}) 
+    }
+    
 }
