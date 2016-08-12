@@ -74,7 +74,7 @@ var HTTPService = (function () {
         var params = question;
         var headers = new http_1.Headers();
         return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingQuestions', params, { headers: headers })
-            .map(function (res) { });
+            .map(function (res) { return res.json(); });
     };
     HTTPService = __decorate([
         core_1.Injectable(), 

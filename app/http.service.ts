@@ -71,7 +71,7 @@ export class HTTPService{
         var params = question;
         var headers = new Headers(); 
         return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingQuestions',params,{headers: headers})
-        .map(res => {}) 
+        .map(res => res.json()) 
     }
     
 }
