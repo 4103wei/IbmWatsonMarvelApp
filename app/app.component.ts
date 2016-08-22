@@ -13,7 +13,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 @Component({
       selector: 'my-app',
       template: `
-            <h1>{{title}}</h1>
+            
             <nav>
             <a [routerLink]="['Home']">Home</a>
             <a [routerLink]="['Ask_watson']">Ask Watson</a>

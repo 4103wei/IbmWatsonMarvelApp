@@ -12,22 +12,35 @@ h1{
 }
 
 h2,h3{
-    font-size: 24px;
+    font-size: 16px;
     color: white;
     font-family: tahoma, Arial, Helvetica, sans-serif;
+}
+
+.header{
+    background-image: url(assets/header.png);
+    width:1024px; 
+    height:422px;
+    
 }
 
 body {
     font-family: tahoma, Arial, Helvetica, sans-serif;
     background-color: black;
-    background-image: url(assets/background3.jpg);
-    background-size:cover;
-    background-position: center; 
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    background-attachment: fixed;
+    background-image: url(assets/bg.jpg);
     margin: 2em;
     opacity: 0.9;
+}
+
+
+.footer{
+    width: 1004px;
+    background: #111;
+    padding: 5px 10px; 
+    font-size: 10px;
+    text-align: right;
+    font-family: tahoma;
+    color: white;
 }
 
 .content a{
@@ -38,61 +51,64 @@ body {
 .content{
     color: white;
     font-size: 12px;
-    background: #10213b;
+    background: #111;
     padding: 5px 10px; 
-    border-top-right-radius: 4px;
-    width: 700px;
+    width: 1004px;
+    min-height: 300px;
+}
+
+.entry{
+    padding-bottom: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+nav{
+    background: #111;
+    width: 1024px;
 }
 
 nav a {
     padding: 5px 10px;
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 0px;
     display: inline-block;
-    background-color: #193661;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-
+    background-color: #111;
     
 }
 nav a:visited, a:link {
-    color: #039be5; 
+    color: #333; 
 }
 nav a:hover {
-    color: #039be5;
+    color: #aaa;
 }
 nav a.router-link-active {
-    background: #10213b;
-    color: #039be5; 
+    background: #111;
+    color: #fff; 
 }
 
-.footer{
-    width: 700px;
-    background: #10213b;
-    padding: 5px 10px; 
-    border-bottom-right-radius:4px;
-    border-bottom-left-radius:4px;
-    font-size: 10px;
-    text-align: right;
-    font-family: tahoma;
-    color: white;
-}
+
 
 .login-form{
     color: white;
     text-shadow: 1px 1px black;
     font-family: tahoma;
 }
-.askWatsonBox, .addQuestionBox{
+.addQuestionBox{
     width: 100%
+    
+}
+
+.askWatsonBox{
+    width: 720px;
     
 }
 
 .ask_watson_question, .ask_watson_answer
 {
+    width: 700px;
     position: relative;
     padding: 10px;
-
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -121,7 +137,7 @@ nav a.router-link-active {
     padding: 20px 20px 20px 20px;
     font-family: sans-serif;
     font-size: 20px;
-    background: #10213b;
+    background: #111;
 }
 
 #delay{
