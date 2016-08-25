@@ -4,6 +4,12 @@ html{
     
 }
 
+table{
+    color:white;
+    font-size: 11px;
+    text-align: left;
+}
+
 h1{
     color: white;
     font-family: tahoma, Arial, Helvetica, sans-serif;

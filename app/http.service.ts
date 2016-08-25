@@ -74,4 +74,8 @@ export class HTTPService{
         .map(res => res.json()) 
     }
     
+    get_highscore_list(){
+        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/highscore')
+    }
+    
 }

@@ -76,6 +76,9 @@ var HTTPService = (function () {
         return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingQuestions', params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    HTTPService.prototype.get_highscore_list = function () {
+        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/highscore');
+    };
     HTTPService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
