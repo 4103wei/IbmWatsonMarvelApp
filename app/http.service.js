@@ -66,7 +66,7 @@ var HTTPService = (function () {
     /* Requesting Questions that are required for the game
      */
     HTTPService.prototype.get_question_watson = function () {
-        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/requestQuestions');
+        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/watsonquizresponse');
     };
     /* http POST request to add a question to the db
      */

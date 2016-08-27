@@ -61,7 +61,7 @@ export class HTTPService{
     /* Requesting Questions that are required for the game
      */
     get_question_watson(){
-        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/requestQuestions')
+        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/watsonquizresponse')
     }
     
     

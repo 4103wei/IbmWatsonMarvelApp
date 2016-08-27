@@ -16,22 +16,53 @@ var http_service_1 = require('./http.service');
 var WhoAmIComponent = (function () {
     function WhoAmIComponent(httpService) {
         this.httpService = httpService;
+        this.jsonstring = '';
+        this.jsonarray = null;
+        this.maxquestioncount = 15;
+        this.questioncount = 1;
     }
     /* Do a http GET request to fetch the question needed for the quiz
      * The result should be in JSON format
      */
     WhoAmIComponent.prototype.fetchQuestion = function () {
-        this.httpService.get_question_watson().map(function (res) { return res.text(); }).subscribe(function (res) { return alert(res); }, function (err) { return alert("error"); }, function () { return console.log('Completed'); });
+        var _this = this;
+        this.httpService.get_question_watson().map(function (res) { return res.json(); }).subscribe(function (res) { return _this.jsonstring = JSON.stringify(res); }, function (err) { return console.log('Error'); }, function () { return console.log('Completed'); });
     };
     /* Start a timer, the game starts after the countdown.
      */
     WhoAmIComponent.prototype.startTimer = function () {
+        var _this = this;
+        this.fetchQuestion();
         document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
-        setTimeout(this.initQuestions, 2000);
+        setTimeout(function () { _this.initQuestions(); }, 1000);
+    };
+    /* initialize a question
+     * param: int id - id of the question&answer set that have to be initialized
+     */
+    WhoAmIComponent.prototype.qinit = function (id) {
+        var _this = this;
+        document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
+        <button class='button' id='ans1'></button>\
+        <button class='button' id='ans2'></button>\
+        <button class='button' id='ans3'></button>\
+        <button class='button' id='ans4'></button></center>";
+        document.getElementById("ans1").onclick = function () { _this.qinit(id + 1); };
+        document.getElementById("ans2").onclick = function () { _this.qinit(id + 1); };
+        document.getElementById("ans3").onclick = function () { _this.qinit(id + 1); };
+        document.getElementById("ans4").onclick = function () { _this.qinit(id + 1); };
+        document.getElementById("question_num").innerHTML = id.toString() + " of " + this.maxquestioncount.toString();
+        document.getElementById("question").innerHTML = this.jsonarray[id.toString()]["question"];
+        document.getElementById("ans1").innerHTML = this.jsonarray[id.toString()]["correct"];
+        document.getElementById("ans2").innerHTML = this.jsonarray[id.toString()]["wrong_1"];
+        document.getElementById("ans3").innerHTML = this.jsonarray[id.toString()]["wrong_2"];
+        document.getElementById("ans4").innerHTML = this.jsonarray[id.toString()]["wrong_3"];
     };
     /* Game logic
      */
     WhoAmIComponent.prototype.initQuestions = function () {
+        this.jsonarray = JSON.parse(this.jsonstring);
+        this.qinit(this.questioncount);
+        /*
         //TODO: Generate Question
         //TODO: Fetch 4 answers from Watson
         var question = '';
@@ -39,45 +70,48 @@ var WhoAmIComponent = (function () {
         var question_count = 0;
         var maximum_question_count = 15;
         var answers_given = [];
-        var next = function (ans) {
-            question_count = question_count + 1;
-            if (question_count > maximum_question_count) {
-                document.getElementById("gamewindow").innerHTML =
-                    "Your answers: " + answers_given + "<br>Some stats<br>\
+    
+        var next = function(ans){
+                        question_count = question_count + 1;
+                        if (question_count > maximum_question_count){
+                            document.getElementById("gamewindow").innerHTML =
+                                "Your answers: " + answers_given + "<br>Some stats<br>\
                                 <button class='button' id='pa'>Play Again (TODO)</button>";
-                document.getElementById("pa").onclick = function () { alert("To be implemented"); };
-            }
-            else {
-                if (ans != -1) {
-                    // TODO ------- save answer
-                    answers_given.push(ans);
-                }
-                // TODO ------- fetch question + answers
-                answers = ['Peter Parker', 'Natalia Alianovna', 'Anthony Edward Stark', 'Wanda Maximoff'];
-                question = 'What is the real name of Black Widow?';
-                if (question_count % 2 == 0) {
-                    answers = ['45', '27', '38', '22'];
-                    question = 'How old is Hawkeye?';
-                }
-                //------------------
-                document.getElementById("question_num").innerHTML = question_count.toString() + " of " + maximum_question_count.toString();
-                document.getElementById("question").innerHTML = question;
-                document.getElementById("ans1").innerHTML = answers[0];
-                document.getElementById("ans2").innerHTML = answers[1];
-                document.getElementById("ans3").innerHTML = answers[2];
-                document.getElementById("ans4").innerHTML = answers[3];
-            }
-        };
+                            
+                            document.getElementById("pa").onclick= function(){alert("To be implemented")};
+                        }else{
+                            if(ans != -1){
+                                // TODO ------- save answer
+                                answers_given.push(ans);
+                            }
+
+                            // TODO ------- fetch question + answers
+                            answers = ['Peter Parker', 'Natalia Alianovna', 'Anthony Edward Stark', 'Wanda Maximoff'];
+                            question = 'What is the real name of Black Widow?';
+                            if (question_count % 2 == 0){
+                            answers = ['45', '27', '38', '22'];
+                            question = 'How old is Hawkeye?';
+                            }
+                            //------------------
+                            document.getElementById("question_num").innerHTML = question_count.toString() + " of " + maximum_question_count.toString();
+                            document.getElementById("question").innerHTML = question;
+                            document.getElementById("ans1").innerHTML = answers[0];
+                            document.getElementById("ans2").innerHTML = answers[1];
+                            document.getElementById("ans3").innerHTML = answers[2];
+                            document.getElementById("ans4").innerHTML = answers[3];
+                        }
+                    }
         document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
         <button class='button' id='ans1'></button>\
         <button class='button' id='ans2'></button>\
         <button class='button' id='ans3'></button>\
         <button class='button' id='ans4'></button></center>";
-        document.getElementById("ans1").onclick = function () { next(1); };
-        document.getElementById("ans2").onclick = function () { next(2); };
-        document.getElementById("ans3").onclick = function () { next(3); };
-        document.getElementById("ans4").onclick = function () { next(4); };
+        document.getElementById("ans1").onclick= function(){next(1)};
+        document.getElementById("ans2").onclick= function(){next(2)};
+        document.getElementById("ans3").onclick= function(){next(3)};
+        document.getElementById("ans4").onclick= function(){next(4)};
         next(-1);
+    */
     };
     WhoAmIComponent = __decorate([
         core_1.Component({

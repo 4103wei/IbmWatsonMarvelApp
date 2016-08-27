@@ -12,18 +12,22 @@ import { HTTPService } from './http.service';
 })
 
 export class WhoAmIComponent {
-        
-    
-    constructor(private httpService: HTTPService){
-    }
+    jsonstring = '';
+    jsonarray=null;
+    maxquestioncount = 15;
+    questioncount= 1;
+    constructor(private httpService: HTTPService){}
   
+    
+    
+    
     /* Do a http GET request to fetch the question needed for the quiz
      * The result should be in JSON format
      */
     fetchQuestion(){
-        this.httpService.get_question_watson().map(res => res.text()).subscribe(
-            res => alert(res),
-            err => alert("error"),
+        this.httpService.get_question_watson().map(res => res.json()).subscribe(
+            res => this.jsonstring = JSON.stringify(res),
+            err => console.log('Error'),
             () => console.log('Completed')
         );
     }
@@ -31,14 +35,42 @@ export class WhoAmIComponent {
     /* Start a timer, the game starts after the countdown. 
      */
     startTimer(){
+        this.fetchQuestion();
         document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
-        setTimeout(this.initQuestions, 2000);
+        setTimeout(()=>{this.initQuestions();}, 1000);
     }
 
+    /* initialize a question
+     * param: int id - id of the question&answer set that have to be initialized 
+     */
+    qinit(id){
+        document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
+        <button class='button' id='ans1'></button>\
+        <button class='button' id='ans2'></button>\
+        <button class='button' id='ans3'></button>\
+        <button class='button' id='ans4'></button></center>";
+        document.getElementById("ans1").onclick= ()=>{this.qinit(id+1);};
+        document.getElementById("ans2").onclick= ()=>{this.qinit(id+1);};
+        document.getElementById("ans3").onclick= ()=>{this.qinit(id+1);};
+        document.getElementById("ans4").onclick= ()=>{this.qinit(id+1);};
+        
+        
+        document.getElementById("question_num").innerHTML = id.toString() + " of " +this.maxquestioncount.toString();
+        document.getElementById("question").innerHTML = this.jsonarray[id.toString()]["question"];
+        document.getElementById("ans1").innerHTML = this.jsonarray[id.toString()]["correct"];
+        document.getElementById("ans2").innerHTML = this.jsonarray[id.toString()]["wrong_1"];
+        document.getElementById("ans3").innerHTML = this.jsonarray[id.toString()]["wrong_2"];
+        document.getElementById("ans4").innerHTML = this.jsonarray[id.toString()]["wrong_3"];
+    }
+    
     
     /* Game logic
      */
     initQuestions() {
+        this.jsonarray = JSON.parse(this.jsonstring);
+        this.qinit(this.questioncount);
+        
+        /*
         //TODO: Generate Question
         //TODO: Fetch 4 answers from Watson
         var question = '';  
@@ -87,7 +119,8 @@ export class WhoAmIComponent {
         document.getElementById("ans3").onclick= function(){next(3)};
         document.getElementById("ans4").onclick= function(){next(4)};
         next(-1);
+    */
     }
-
+    
 }
 
