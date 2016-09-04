@@ -3,7 +3,7 @@ import {Http, Headers, HTTP_PROVIDERS, URLSearchParams,RequestOptions, Request, 
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/mergeMap';
 import { HTTPService } from './http.service';
-
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'home',
@@ -12,22 +12,41 @@ import { HTTPService } from './http.service';
 })
 
 export class WhoAmIComponent {
+    test ='';
+    
+    /*
+    timer = -1;
+    id = 1;
+    */
+    
+    
     jsonstring = '';
     jsonarray=null;
-    maxquestioncount = 15;
-    questioncount= 1;
+    maxquestioncount = 3;
+
+    rannum = 0;
+    questions = [];
+    givenanswers = [];
+    correctanswers = [];
+    score = 0;
     constructor(private httpService: HTTPService){}
   
     
-    
+    /* Adding timer to questions
+    ngOnInit(){
+        let k = Observable.timer(0,1000);
+        k.subscribe(t=> {if (this.timer < 0){this.timer = this.timer - 1} else if (this.timer == 0) {() =>this.qinit(this.id + 1)}});
+        //(this.timer == 0) => {this.qinit(this.id++)}
+    }
+    */
     
     /* Do a http GET request to fetch the question needed for the quiz
      * The result should be in JSON format
      */
     fetchQuestion(){
         this.httpService.get_question_watson().map(res => res.json()).subscribe(
-            res => this.jsonstring = JSON.stringify(res),
-            err => console.log('Error'),
+            res => {this.jsonstring = JSON.stringify(res); this.initQuestions();},
+            err => this.test = 'error',
             () => console.log('Completed')
         );
     }
@@ -35,91 +54,85 @@ export class WhoAmIComponent {
     /* Start a timer, the game starts after the countdown. 
      */
     startTimer(){
-        this.fetchQuestion();
         document.getElementById("gamewindow").innerHTML = "<center><div id ='delay'>GET READY...</div></center>";
-        setTimeout(()=>{this.initQuestions();}, 1000);
+        this.fetchQuestion();
+        //setTimeout(()=>{this.initQuestions();}, 60000);
     }
+
 
     /* initialize a question
      * param: int id - id of the question&answer set that have to be initialized 
      */
     qinit(id){
-        document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
-        <button class='button' id='ans1'></button>\
-        <button class='button' id='ans2'></button>\
-        <button class='button' id='ans3'></button>\
-        <button class='button' id='ans4'></button></center>";
-        document.getElementById("ans1").onclick= ()=>{this.qinit(id+1);};
-        document.getElementById("ans2").onclick= ()=>{this.qinit(id+1);};
-        document.getElementById("ans3").onclick= ()=>{this.qinit(id+1);};
-        document.getElementById("ans4").onclick= ()=>{this.qinit(id+1);};
+        //for debug purposes
+        //this.test = "ayyyyyy";
+
         
-        
-        document.getElementById("question_num").innerHTML = id.toString() + " of " +this.maxquestioncount.toString();
-        document.getElementById("question").innerHTML = this.jsonarray[id.toString()]["question"];
-        document.getElementById("ans1").innerHTML = this.jsonarray[id.toString()]["correct"];
-        document.getElementById("ans2").innerHTML = this.jsonarray[id.toString()]["wrong_1"];
-        document.getElementById("ans3").innerHTML = this.jsonarray[id.toString()]["wrong_2"];
-        document.getElementById("ans4").innerHTML = this.jsonarray[id.toString()]["wrong_3"];
-    }
+        if (id > this.maxquestioncount){
+            // Game ended, evaluation
+            
+            // score
+            var k = 0;
+            while(k < this.maxquestioncount){
+                if (this.givenanswers[k] == this.correctanswers[k]){
+                    this.score = this.score + 100;
+                }
+                k++;
+            }
+            
+            // 
+            var i = 0;
+            var evperquestion = '';
+            while(i < this.maxquestioncount){
+                evperquestion = evperquestion + "<div class ='ev'><div class='evq'>The question is: "+ this.questions[i] + "</div>" + "<div class ='evca'>The correct answer is: "+ this.correctanswers[i] + "</div>" + "<div class ='evga'>Your answer was: "+ this.givenanswers[i] + "</div></div>";
+                i++;
+            }
+            
+            document.getElementById("gamewindow").innerHTML = evperquestion + "<div class='evscore'>Score: "+ this.score + "</div>"+ "<button class='button' id='replay'>Replay</button>";
+            document.getElementById("replay").onclick= ()=>{this.startTimer()};
+        }else{
     
+            this.rannum = Math.floor(Math.random() * 4); // {0,1,2,3}
+            document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
+            <button class='button' id='ans0'></button>\
+            <button class='button' id='ans1'></button>\
+            <button class='button' id='ans2'></button>\
+            <button class='button' id='ans3'></button></center>";
+            document.getElementById("ans0").onclick= ()=>{this.givenanswers.push(document.getElementById("ans0").innerHTML);this.qinit(id+1);};
+            document.getElementById("ans1").onclick= ()=>{this.givenanswers.push(document.getElementById("ans1").innerHTML);this.qinit(id+1);};
+            document.getElementById("ans2").onclick= ()=>{this.givenanswers.push(document.getElementById("ans2").innerHTML);this.qinit(id+1);};
+            document.getElementById("ans3").onclick= ()=>{this.givenanswers.push(document.getElementById("ans3").innerHTML);this.qinit(id+1);};
+
+            document.getElementById("question_num").innerHTML = id.toString() + " of " +this.maxquestioncount.toString();
+            document.getElementById("question").innerHTML = this.jsonarray[id.toString()]["question"];
+            document.getElementById("ans"+this.rannum.toString()).innerHTML = this.jsonarray[id.toString()]["correct"];
+            document.getElementById("ans"+((this.rannum + 1) %4).toString()).innerHTML = this.jsonarray[id.toString()]["wrong_1"];
+            document.getElementById("ans"+((this.rannum + 2) %4).toString()).innerHTML = this.jsonarray[id.toString()]["wrong_2"];
+            document.getElementById("ans"+((this.rannum + 3) %4).toString()).innerHTML = this.jsonarray[id.toString()]["wrong_3"];
+        }  
+        
+    }
+
     
     /* Game logic
      */
     initQuestions() {
-        this.jsonarray = JSON.parse(this.jsonstring);
-        this.qinit(this.questioncount);
         
-        /*
-        //TODO: Generate Question
-        //TODO: Fetch 4 answers from Watson
-        var question = '';  
-        var answers = ['', '', '', '']; 
-        var question_count = 0;
-        var maximum_question_count = 15;
-        var answers_given = [];
-    
-        var next = function(ans){
-                        question_count = question_count + 1;
-                        if (question_count > maximum_question_count){
-                            document.getElementById("gamewindow").innerHTML = 
-                                "Your answers: " + answers_given + "<br>Some stats<br>\
-                                <button class='button' id='pa'>Play Again (TODO)</button>";
-                            
-                            document.getElementById("pa").onclick= function(){alert("To be implemented")};
-                        }else{
-                            if(ans != -1){
-                                // TODO ------- save answer
-                                answers_given.push(ans);
-                            }
-
-                            // TODO ------- fetch question + answers
-                            answers = ['Peter Parker', 'Natalia Alianovna', 'Anthony Edward Stark', 'Wanda Maximoff']; 
-                            question = 'What is the real name of Black Widow?';  
-                            if (question_count % 2 == 0){
-                            answers = ['45', '27', '38', '22']; 
-                            question = 'How old is Hawkeye?';  
-                            }
-                            //------------------
-                            document.getElementById("question_num").innerHTML = question_count.toString() + " of " + maximum_question_count.toString();
-                            document.getElementById("question").innerHTML = question;
-                            document.getElementById("ans1").innerHTML = answers[0];
-                            document.getElementById("ans2").innerHTML = answers[1];
-                            document.getElementById("ans3").innerHTML = answers[2];
-                            document.getElementById("ans4").innerHTML = answers[3];
-                        }
-                    }   
-        document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
-        <button class='button' id='ans1'></button>\
-        <button class='button' id='ans2'></button>\
-        <button class='button' id='ans3'></button>\
-        <button class='button' id='ans4'></button></center>";
-        document.getElementById("ans1").onclick= function(){next(1)};
-        document.getElementById("ans2").onclick= function(){next(2)};
-        document.getElementById("ans3").onclick= function(){next(3)};
-        document.getElementById("ans4").onclick= function(){next(4)};
-        next(-1);
-    */
+        // init game data
+        this.jsonarray = JSON.parse(this.jsonstring);
+        
+        // init true answers and questions from game data
+        var i = 1;
+        while (i <= this.maxquestioncount){
+            this.correctanswers.push(this.jsonarray[i.toString()]["correct"]);
+            this.questions.push(this.jsonarray[i.toString()]["question"]);
+            i++;
+        }
+        
+        // init quiz
+        this.qinit(1);
+        
+        
     }
     
 }

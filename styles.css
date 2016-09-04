@@ -146,6 +146,14 @@ nav a.router-link-active {
     background: #111;
 }
 
+.ev{
+    padding-bottom: 30px;
+    font-size: 11px;
+}
+
+
+
+
 #delay{
     font-size: 30px;
     animation: blinker 1s linear infinite;
