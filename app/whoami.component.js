@@ -16,11 +16,7 @@ var http_service_1 = require('./http.service');
 var WhoAmIComponent = (function () {
     function WhoAmIComponent(httpService) {
         this.httpService = httpService;
-        this.test = '';
-        /*
-        timer = -1;
-        id = 1;
-        */
+        this.status = '';
         this.jsonstring = '';
         this.jsonarray = null;
         this.maxquestioncount = 15;
@@ -29,26 +25,19 @@ var WhoAmIComponent = (function () {
         this.givenanswers = [];
         this.correctanswers = [];
         this.score = 0;
+        this.namebox = '';
     }
-    /* Adding timer to questions
-    ngOnInit(){
-        let k = Observable.timer(0,1000);
-        k.subscribe(t=> {if (this.timer < 0){this.timer = this.timer - 1} else if (this.timer == 0) {() =>this.qinit(this.id + 1)}});
-        //(this.timer == 0) => {this.qinit(this.id++)}
-    }
-    */
     /* Do a http GET request to fetch the question needed for the quiz
      * The result should be in JSON format
      */
     WhoAmIComponent.prototype.fetchQuestion = function () {
         var _this = this;
-        this.httpService.get_question_watson().map(function (res) { return res.json(); }).subscribe(function (res) { _this.jsonstring = JSON.stringify(res); _this.initQuestions(); }, function (err) { return _this.test = 'Status 2'; }, function () { return console.log('Completed'); });
+        this.httpService.get_question_watson().map(function (res) { return res.json(); }).subscribe(function (res) { _this.jsonstring = JSON.stringify(res); _this.initQuestions(); }, function (err) { return _this.status = 'Could not initialize the questions.'; }, function () { return console.log('Completed'); });
     };
-    /*
-     *
+    /* This method uses the httpService to do a GET request to update the leaderboard.
      */
     WhoAmIComponent.prototype.addScore = function (name, score) {
-        this.httpService.add_highscore(name, score);
+        this.httpService.add_highscore(name, score).map(function (res) { return res.json(); }).subscribe();
     };
     /* Start a timer, the game starts after the countdown.
      */
@@ -61,8 +50,6 @@ var WhoAmIComponent = (function () {
      * param: int id - id of the question&answer set that have to be initialized
      */
     WhoAmIComponent.prototype.qinit = function (id) {
-        //for debug purposes
-        //this.test = "ayyyyyy";
         var _this = this;
         if (id > this.maxquestioncount) {
             // Game ended, evaluation
@@ -74,7 +61,6 @@ var WhoAmIComponent = (function () {
                 }
                 k++;
             }
-            // 
             var i = 0;
             var evperquestion = '';
             while (i < this.maxquestioncount) {
@@ -83,6 +69,7 @@ var WhoAmIComponent = (function () {
             }
             document.getElementById("gamewindow").innerHTML = evperquestion + "<div class='evscore'>Score: " + this.score + "</div>" + "<button class='button' id='replay'>Replay</button>";
             document.getElementById("replay").onclick = function () { _this.startTimer(); };
+            this.addScore(this.namebox, this.score.toString()); // add score to the leaderboard
         }
         else {
             this.rannum = Math.floor(Math.random() * 4); // {0,1,2,3}
@@ -108,6 +95,9 @@ var WhoAmIComponent = (function () {
     WhoAmIComponent.prototype.initQuestions = function () {
         // init game data
         this.jsonarray = JSON.parse(this.jsonstring);
+        this.score = 0;
+        this.givenanswers = [];
+        this.correctanswers = [];
         // init true answers and questions from game data
         var i = 1;
         while (i <= this.maxquestioncount) {

@@ -11,15 +11,14 @@ import { HTTPService } from './http.service';
     providers: [HTTP_PROVIDERS, HTTPService]
 })
 export class HighscoreComponent {
-    TABLEHEADER = "<tr><th>Rank</th><th>Name</th><th>Score</th><th>Time</th></tr>";
-    ENTRYSTART = "<tr>";
-    ENTRYEND = "</tr>";
+    private TABLEHEADER = "<tr><th>Rank</th><th>Name</th><th>Score</th><th>Time</th></tr>";
+    private ENTRYSTART = "<tr>";
+    private ENTRYEND = "</tr>";
     
     constructor(private httpService: HTTPService){}
     
     
     ngOnInit(){
-       
         this.httpService.get_highscore_list().map(res => res.json()).subscribe(
         res => document.getElementById("leaderboard").innerHTML = this.TABLEHEADER +
             this.ENTRYSTART + ("<td>1</td>" + "<td>"+JSON.stringify(res["1"]["name"])+"</td>" + "<td>"+JSON.stringify(res["1"]["score"])+"</td>" + "<td>"+JSON.stringify(res["1"]["date"])+"</td>").split('"').join(" ") + this.ENTRYEND +
@@ -32,9 +31,8 @@ export class HighscoreComponent {
             this.ENTRYSTART + ("<td>8</td>" + "<td>"+JSON.stringify(res["8"]["name"])+"</td>" + "<td>"+JSON.stringify(res["8"]["score"])+"</td>" + "<td>"+JSON.stringify(res["8"]["date"])+"</td>").split('"').join(" ") + this.ENTRYEND +
             this.ENTRYSTART + ("<td>9</td>" + "<td>"+JSON.stringify(res["9"]["name"])+"</td>" + "<td>"+JSON.stringify(res["9"]["score"])+"</td>" + "<td>"+JSON.stringify(res["9"]["date"])+"</td>").split('"').join(" ") + this.ENTRYEND +
             this.ENTRYSTART + ("<td>10</td>" + "<td>"+JSON.stringify(res["10"]["name"])+"</td>" + "<td>"+JSON.stringify(res["10"]["score"])+"</td>" + "<td>"+JSON.stringify(res["10"]["date"])+"</td>").split('"').join(" ") + this.ENTRYEND 
-        
             ,
-            err => console.log('Error'),
+            err => document.getElementById("leaderboard").innerHTML = "An error has occured, leaderboard is not available.",
             () => console.log('Completed')
         );
         

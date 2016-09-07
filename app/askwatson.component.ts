@@ -16,9 +16,9 @@ import { HTTPService } from './http.service';
 
 
 export class AskWatsonComponent {
-    question = '';
-    view_question = '...';
-    view_answer = 'Ask me something.';
+    private question = '';
+    private view_question = '...';
+    private view_answer = 'Ask me something.';
     
     
     constructor(private httpService: HTTPService){}

@@ -3,12 +3,14 @@
 <h3>Marvel Cinematic Universe Quiz</h3>
 
     
-    <div>{{test}}</div>
-    
-    <div>{{timer}}</div>
-    
+    <div>{{status}}</div>
+   
     <div id='gamewindow'>
-        <center><button class='button' id='button_startgame' (click)='startTimer()'>Start the Quiz</button></center>
+        
+        <center>
+            <input class='namebox' [(ngModel)]="namebox" type=text placeholder="Your Name"><br><br>
+            <button class='button' id='button_startgame' (click)='startTimer()'>Start the Quiz</button>
+        </center>
         
         
         

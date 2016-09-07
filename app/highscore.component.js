@@ -32,7 +32,7 @@ var HighscoreComponent = (function () {
             _this.ENTRYSTART + ("<td>7</td>" + "<td>" + JSON.stringify(res["7"]["name"]) + "</td>" + "<td>" + JSON.stringify(res["7"]["score"]) + "</td>" + "<td>" + JSON.stringify(res["7"]["date"]) + "</td>").split('"').join(" ") + _this.ENTRYEND +
             _this.ENTRYSTART + ("<td>8</td>" + "<td>" + JSON.stringify(res["8"]["name"]) + "</td>" + "<td>" + JSON.stringify(res["8"]["score"]) + "</td>" + "<td>" + JSON.stringify(res["8"]["date"]) + "</td>").split('"').join(" ") + _this.ENTRYEND +
             _this.ENTRYSTART + ("<td>9</td>" + "<td>" + JSON.stringify(res["9"]["name"]) + "</td>" + "<td>" + JSON.stringify(res["9"]["score"]) + "</td>" + "<td>" + JSON.stringify(res["9"]["date"]) + "</td>").split('"').join(" ") + _this.ENTRYEND +
-            _this.ENTRYSTART + ("<td>10</td>" + "<td>" + JSON.stringify(res["10"]["name"]) + "</td>" + "<td>" + JSON.stringify(res["10"]["score"]) + "</td>" + "<td>" + JSON.stringify(res["10"]["date"]) + "</td>").split('"').join(" ") + _this.ENTRYEND; }, function (err) { return console.log('Error'); }, function () { return console.log('Completed'); });
+            _this.ENTRYSTART + ("<td>10</td>" + "<td>" + JSON.stringify(res["10"]["name"]) + "</td>" + "<td>" + JSON.stringify(res["10"]["score"]) + "</td>" + "<td>" + JSON.stringify(res["10"]["date"]) + "</td>").split('"').join(" ") + _this.ENTRYEND; }, function (err) { return document.getElementById("leaderboard").innerHTML = "An error has occured, leaderboard is not available."; }, function () { return console.log('Completed'); });
     };
     HighscoreComponent = __decorate([
         core_1.Component({

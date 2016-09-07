@@ -19,11 +19,12 @@ var AddQuestionsComponent = (function () {
         this.notification = '';
         this.addquestionbox = '';
     }
+    // receiving key event
     AddQuestionsComponent.prototype.eventHandler = function (key) {
         var _this = this;
         if (key == 13 && this.addquestionbox != '') {
             this.notification = 'Your question: "' + this.addquestionbox + '" has been submitted.';
-            this.httpService.add_question_to_db(this.addquestionbox).map(function (res) { return res.json(); }).subscribe(function (res) { return _this.notification = _this.notification; }, function (err) { return _this.notification = _this.notification; }, function () { return console.log('Completed'); });
+            this.httpService.add_question_to_db(this.addquestionbox).map(function (res) { return res.json(); }).subscribe(function (res) { return _this.notification = _this.notification; }, function (err) { return _this.notification = "Question could not be submitted."; }, function () { return console.log('Completed'); });
             this.addquestionbox = '';
         }
         else {

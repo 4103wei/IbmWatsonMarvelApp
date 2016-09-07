@@ -13,26 +13,21 @@ import 'rxjs/add/operator/mergeMap';
     providers: [HTTP_PROVIDERS, HTTPService]
 })
 export class AddQuestionsComponent {
-    notification = '';
-    addquestionbox = '';
+    private notification = '';
+    private addquestionbox = '';
     
     constructor(private httpService: HTTPService){}
     
-    
+    // receiving key event
     eventHandler(key) {
         if (key==13 && this.addquestionbox != ''){
             this.notification = 'Your question: "'+this.addquestionbox+'" has been submitted.';
-            
-            
             this.httpService.add_question_to_db(this.addquestionbox).map(res => res.json()).subscribe(
                 res => this.notification = this.notification,
-                err => this.notification = this.notification,
+                err => this.notification = "Question could not be submitted.",
                 () => console.log('Completed')
             );
-            
-            
             this.addquestionbox = '';
-            
         }else{
             this.notification = '';
         }
