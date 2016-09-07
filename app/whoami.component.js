@@ -23,7 +23,7 @@ var WhoAmIComponent = (function () {
         */
         this.jsonstring = '';
         this.jsonarray = null;
-        this.maxquestioncount = 3;
+        this.maxquestioncount = 15;
         this.rannum = 0;
         this.questions = [];
         this.givenanswers = [];
@@ -42,7 +42,13 @@ var WhoAmIComponent = (function () {
      */
     WhoAmIComponent.prototype.fetchQuestion = function () {
         var _this = this;
-        this.httpService.get_question_watson().map(function (res) { return res.json(); }).subscribe(function (res) { _this.jsonstring = JSON.stringify(res); _this.initQuestions(); }, function (err) { return _this.test = 'error'; }, function () { return console.log('Completed'); });
+        this.httpService.get_question_watson().map(function (res) { return res.json(); }).subscribe(function (res) { _this.jsonstring = JSON.stringify(res); _this.initQuestions(); }, function (err) { return _this.test = 'Status 2'; }, function () { return console.log('Completed'); });
+    };
+    /*
+     *
+     */
+    WhoAmIComponent.prototype.addScore = function (name, score) {
+        this.httpService.add_highscore(name, score);
     };
     /* Start a timer, the game starts after the countdown.
      */

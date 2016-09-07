@@ -22,7 +22,7 @@ export class WhoAmIComponent {
     
     jsonstring = '';
     jsonarray=null;
-    maxquestioncount = 3;
+    maxquestioncount = 15;
 
     rannum = 0;
     questions = [];
@@ -46,9 +46,17 @@ export class WhoAmIComponent {
     fetchQuestion(){
         this.httpService.get_question_watson().map(res => res.json()).subscribe(
             res => {this.jsonstring = JSON.stringify(res); this.initQuestions();},
-            err => this.test = 'error',
+            err => this.test = 'Status 2',
             () => console.log('Completed')
         );
+    }
+    
+    
+    /*
+     *
+     */
+    addScore(name, score){
+        this.httpService.add_highscore(name, score);
     }
     
     /* Start a timer, the game starts after the countdown. 
@@ -90,6 +98,8 @@ export class WhoAmIComponent {
             
             document.getElementById("gamewindow").innerHTML = evperquestion + "<div class='evscore'>Score: "+ this.score + "</div>"+ "<button class='button' id='replay'>Replay</button>";
             document.getElementById("replay").onclick= ()=>{this.startTimer()};
+            
+            //this.addScore("MYMY", this.score.toString()); // add score to the leaderboard
         }else{
     
             this.rannum = Math.floor(Math.random() * 4); // {0,1,2,3}

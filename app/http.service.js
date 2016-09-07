@@ -55,13 +55,10 @@ var HTTPService = (function () {
     /* http POST request to get the answer of watson to a specific question
      */
     HTTPService.prototype.ask_watson = function (question) {
-        var _this = this;
-        var params = question;
-        var headers = new http_1.Headers();
-        headers.append('Filepath', 'C:/Users/shameless/Desktop/angular2-tour-of-heroes/response.json');
-        return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/submit/postQuestion', params, { headers: headers })
-            .map(function (res) { })
-            .flatMap(function () { return _this.http.get('./response.json'); });
+        var headers = new http_1.Headers({ "Question": question });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/submit/getAnswer', options);
+        //.flatMap(() => this.http.get('./response.json'))    
     };
     /* Requesting Questions that are required for the game
      */
@@ -76,8 +73,19 @@ var HTTPService = (function () {
         return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingQuestions', params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    /* get leaderboard
+     */
     HTTPService.prototype.get_highscore_list = function () {
         return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/highscore');
+    };
+    /* http POST request to add a highscore to the leaderboard
+     */
+    HTTPService.prototype.add_highscore = function (name, score) {
+        var body = "";
+        var headers = new http_1.Headers();
+        headers.append('Name', name);
+        headers.append('Score', score);
+        this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingScore', body, { headers: headers });
     };
     HTTPService = __decorate([
         core_1.Injectable(), 

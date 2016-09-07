@@ -48,13 +48,12 @@ export class HTTPService{
     
     /* http POST request to get the answer of watson to a specific question
      */
+    
     ask_watson(question){ 
-        var params = question;
-        var headers = new Headers(); 
-        headers.append('Filepath', 'C:/Users/shameless/Desktop/angular2-tour-of-heroes/response.json');
-        return this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/submit/postQuestion',params,{headers: headers})
-        .map(res => {})
-            .flatMap(() => this.http.get('./response.json'))    
+        var headers = new Headers({"Question" : question}); 
+        var options = new RequestOptions({ headers: headers });
+        return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/submit/getAnswer', options)        
+    //.flatMap(() => this.http.get('./response.json'))    
     }
     
     
@@ -74,8 +73,23 @@ export class HTTPService{
         .map(res => res.json()) 
     }
     
+    /* get leaderboard
+     */
     get_highscore_list(){
         return this.http.get('http://localhost:8080/Marvel-QA-be/watsonqa/sql/highscore')
     }
+    
+    
+    /* http POST request to add a highscore to the leaderboard
+     */
+    add_highscore(name, score){
+        var body = "";
+        var headers = new Headers();
+        headers.append('Name', name);
+        headers.append('Score', score);
+
+        this.http.post('http://localhost:8080/Marvel-QA-be/watsonqa/sql/addingScore', body ,{headers: headers}) 
+    }
+    
     
 }
