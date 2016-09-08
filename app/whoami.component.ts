@@ -104,6 +104,7 @@ export class WhoAmIComponent {
         this.score = 0;
         this.givenanswers = [];
         this.correctanswers = [];
+        this.questions = [];
         // init true answers and questions from game data
         var i = 1;
         while (i <= this.maxquestioncount){
