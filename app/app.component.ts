@@ -13,7 +13,6 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 @Component({
       selector: 'my-app',
       template: `
-            
             <nav>
             <a [routerLink]="['Home']">Home</a>
             <a [routerLink]="['Ask_watson']">Ask Watson</a>
@@ -29,43 +28,13 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 })
 
 @RouteConfig([
-      {
-        path: '/home',
-        name: 'Home',
-        component: HomeComponent,
-        useAsDefault: true
-        },
-        {
-        path: '/ask_watson',
-        name: 'Ask_watson',
-        component: AskWatsonComponent
-        },
-        {
-        path: '/add_questions',
-        name: 'Add_questions',
-        component: AddQuestionsComponent
-        },
-        {
-        path: '/highscore',
-        name: 'Highscore',
-        component: HighscoreComponent
-        },
-        {
-        path: '/who_am_i',
-        name: 'Who_am_i',
-        component: WhoAmIComponent
-        },
-        {
-        path: '/login',
-        name: 'Login',
-        component: LoginComponent
-        },
-        {
-        path: '/signup',
-        name: 'Signup',
-        component: SignupComponent
-        }
-
+        {path: '/home',name: 'Home',component: HomeComponent,useAsDefault: true},
+        {path: '/ask_watson',name: 'Ask_watson',component: AskWatsonComponent},
+        {path: '/add_questions',name: 'Add_questions',component: AddQuestionsComponent},
+        {path: '/highscore',name: 'Highscore',component: HighscoreComponent},
+        {path: '/quiz',name: 'Who_am_i',component: WhoAmIComponent},
+        {path: '/login',name: 'Login',component: LoginComponent},
+        {path: '/signup',name: 'Signup',component: SignupComponent}
 ])
 
 export class AppComponent {

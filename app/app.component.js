@@ -24,47 +24,18 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n            \n            <nav>\n            <a [routerLink]=\"['Home']\">Home</a>\n            <a [routerLink]=\"['Ask_watson']\">Ask Watson</a>\n            <a [routerLink]=\"['Add_questions']\">Add Questions</a>\n            <a [routerLink]=\"['Highscore']\">Highscore</a>\n            <a [routerLink]=\"['Who_am_i']\">Marvel Quiz</a>\n            <a [routerLink]=\"['Login']\">Log In</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
+            template: "\n            <nav>\n            <a [routerLink]=\"['Home']\">Home</a>\n            <a [routerLink]=\"['Ask_watson']\">Ask Watson</a>\n            <a [routerLink]=\"['Add_questions']\">Add Questions</a>\n            <a [routerLink]=\"['Highscore']\">Highscore</a>\n            <a [routerLink]=\"['Who_am_i']\">Marvel Quiz</a>\n            <a [routerLink]=\"['Login']\">Log In</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [router_deprecated_1.ROUTER_PROVIDERS]
         }),
         router_deprecated_1.RouteConfig([
-            {
-                path: '/home',
-                name: 'Home',
-                component: home_component_1.HomeComponent,
-                useAsDefault: true
-            },
-            {
-                path: '/ask_watson',
-                name: 'Ask_watson',
-                component: askwatson_component_1.AskWatsonComponent
-            },
-            {
-                path: '/add_questions',
-                name: 'Add_questions',
-                component: addquestions_component_1.AddQuestionsComponent
-            },
-            {
-                path: '/highscore',
-                name: 'Highscore',
-                component: highscore_component_1.HighscoreComponent
-            },
-            {
-                path: '/who_am_i',
-                name: 'Who_am_i',
-                component: whoami_component_1.WhoAmIComponent
-            },
-            {
-                path: '/login',
-                name: 'Login',
-                component: login_component_1.LoginComponent
-            },
-            {
-                path: '/signup',
-                name: 'Signup',
-                component: signup_component_1.SignupComponent
-            }
+            { path: '/home', name: 'Home', component: home_component_1.HomeComponent, useAsDefault: true },
+            { path: '/ask_watson', name: 'Ask_watson', component: askwatson_component_1.AskWatsonComponent },
+            { path: '/add_questions', name: 'Add_questions', component: addquestions_component_1.AddQuestionsComponent },
+            { path: '/highscore', name: 'Highscore', component: highscore_component_1.HighscoreComponent },
+            { path: '/quiz', name: 'Who_am_i', component: whoami_component_1.WhoAmIComponent },
+            { path: '/login', name: 'Login', component: login_component_1.LoginComponent },
+            { path: '/signup', name: 'Signup', component: signup_component_1.SignupComponent }
         ]), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
