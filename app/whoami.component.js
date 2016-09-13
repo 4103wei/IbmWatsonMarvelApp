@@ -13,6 +13,7 @@ var http_1 = require('@angular/http');
 require("rxjs/add/operator/map");
 require('rxjs/add/operator/mergeMap');
 var http_service_1 = require('./http.service');
+var loginfodata_1 = require('./loginfodata');
 var WhoAmIComponent = (function () {
     function WhoAmIComponent(httpService) {
         this.httpService = httpService;
@@ -27,6 +28,11 @@ var WhoAmIComponent = (function () {
         this.score = 0;
         this.namebox = '';
     }
+    WhoAmIComponent.prototype.ngOnInit = function () {
+        if (localStorage.getItem('user') != loginfodata_1.AUTH["user_auth"] || localStorage.getItem('pw') != loginfodata_1.AUTH["pw_auth"]) {
+            window.location.assign('/login');
+        }
+    };
     /* Do a http GET request to fetch the question needed for the quiz
      * The result should be in JSON format
      */

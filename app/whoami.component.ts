@@ -4,6 +4,7 @@ import "rxjs/add/operator/map";
 import 'rxjs/add/operator/mergeMap';
 import { HTTPService } from './http.service';
 import {Observable} from 'rxjs/Rx';
+import {AUTH} from './loginfodata';
 
 @Component({
     selector: 'home',
@@ -23,7 +24,14 @@ export class WhoAmIComponent {
     private score = 0;
     private namebox = '';
     constructor(private httpService: HTTPService){}
-  
+
+    
+    ngOnInit(){
+        if (localStorage.getItem('user') != AUTH["user_auth"] || localStorage.getItem('pw') !=  AUTH["pw_auth"]){
+            window.location.assign('/login');
+        }
+    }
+    
     /* Do a http GET request to fetch the question needed for the quiz
      * The result should be in JSON format
      */

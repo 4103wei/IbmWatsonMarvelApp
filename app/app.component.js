@@ -15,6 +15,7 @@ var addquestions_component_1 = require('./addquestions.component');
 var highscore_component_1 = require('./highscore.component');
 var whoami_component_1 = require('./whoami.component');
 var login_component_1 = require('./login.component');
+var logout_component_1 = require('./logout.component');
 var signup_component_1 = require('./signup.component');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var AppComponent = (function () {
@@ -24,7 +25,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n            <nav>\n            <a [routerLink]=\"['Home']\">Home</a>\n            <a [routerLink]=\"['Ask_watson']\">Ask Watson</a>\n            <a [routerLink]=\"['Add_questions']\">Add Questions</a>\n            <a [routerLink]=\"['Highscore']\">Highscore</a>\n            <a [routerLink]=\"['Who_am_i']\">Marvel Quiz</a>\n            <a [routerLink]=\"['Login']\">Log In</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
+            template: "\n            <nav>\n            <a [routerLink]=\"['Home']\">Home</a>\n            <a [routerLink]=\"['Ask_watson']\">Ask Watson</a>\n            <a [routerLink]=\"['Add_questions']\">Add Questions</a>\n            <a [routerLink]=\"['Highscore']\">Highscore</a>\n            <a [routerLink]=\"['Who_am_i']\">Marvel Quiz</a>\n            </nav>\n            <router-outlet></router-outlet>\n            ",
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [router_deprecated_1.ROUTER_PROVIDERS]
         }),
@@ -35,7 +36,8 @@ var AppComponent = (function () {
             { path: '/highscore', name: 'Highscore', component: highscore_component_1.HighscoreComponent },
             { path: '/quiz', name: 'Who_am_i', component: whoami_component_1.WhoAmIComponent },
             { path: '/login', name: 'Login', component: login_component_1.LoginComponent },
-            { path: '/signup', name: 'Signup', component: signup_component_1.SignupComponent }
+            { path: '/signup', name: 'Signup', component: signup_component_1.SignupComponent },
+            { path: '/logout', name: 'Logout', component: logout_component_1.LogoutComponent }
         ]), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

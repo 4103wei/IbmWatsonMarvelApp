@@ -4,7 +4,7 @@ import {Component, enableProdMode, Injectable, OnInit} from '@angular/core';
 import {Http, Headers, HTTP_PROVIDERS, URLSearchParams,RequestOptions, Request, RequestMethod, Response} from '@angular/http';
 import "rxjs/add/operator/map";
 import 'rxjs/add/operator/mergeMap';
-
+import {AUTH} from './loginfodata';
 
 
 @Component({
@@ -17,6 +17,13 @@ export class AddQuestionsComponent {
     private addquestionbox = '';
     
     constructor(private httpService: HTTPService){}
+    
+    
+    ngOnInit(){
+        if (localStorage.getItem('user') != AUTH["user_auth"] || localStorage.getItem('pw') !=  AUTH["pw_auth"]){
+            window.location.assign('/login');
+        }
+    }
     
     // receiving key event
     eventHandler(key) {

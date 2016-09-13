@@ -5,9 +5,9 @@ import { AddQuestionsComponent } from './addquestions.component';
 import { HighscoreComponent } from './highscore.component';
 import { WhoAmIComponent } from './whoami.component';
 import { LoginComponent } from './login.component';
+import { LogoutComponent } from './logout.component';
 import { SignupComponent } from './signup.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-
 
 
 @Component({
@@ -19,7 +19,6 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
             <a [routerLink]="['Add_questions']">Add Questions</a>
             <a [routerLink]="['Highscore']">Highscore</a>
             <a [routerLink]="['Who_am_i']">Marvel Quiz</a>
-            <a [routerLink]="['Login']">Log In</a>
             </nav>
             <router-outlet></router-outlet>
             `,
@@ -34,10 +33,15 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
         {path: '/highscore',name: 'Highscore',component: HighscoreComponent},
         {path: '/quiz',name: 'Who_am_i',component: WhoAmIComponent},
         {path: '/login',name: 'Login',component: LoginComponent},
-        {path: '/signup',name: 'Signup',component: SignupComponent}
+        {path: '/signup',name: 'Signup',component: SignupComponent},
+        {path: '/logout',name: 'Logout',component: LogoutComponent}
 ])
 
 export class AppComponent {
+    
+
+    
+    
     title = "Marvel QA";
 }
 

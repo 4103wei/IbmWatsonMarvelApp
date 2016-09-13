@@ -1,0 +1,1 @@
+export const AUTH = {"user_auth": "tud", "pw_auth": "2702"};

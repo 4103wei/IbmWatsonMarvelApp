@@ -10,22 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
+var authservice_1 = require('./authservice');
+var http_1 = require('@angular/http');
+var loginfodata_1 = require('./loginfodata');
 var LoginComponent = (function () {
-    function LoginComponent(fb) {
+    function LoginComponent(_service, fb) {
+        this._service = _service;
         this.loginForm = fb.group({
-            email: ["", common_1.Validators.required],
+            user: ["", common_1.Validators.required],
             password: ["", common_1.Validators.required]
         });
     }
-    LoginComponent.prototype.doLogin = function (data) {
-        alert(data.email);
+    LoginComponent.prototype.ngOnInit = function () {
+        if (localStorage.getItem('user') == loginfodata_1.AUTH["user_auth"] && localStorage.getItem('pw') == loginfodata_1.AUTH["pw_auth"]) {
+            window.location.assign('/logout');
+        }
+    };
+    LoginComponent.prototype.login = function (data) {
+        this._service.loginfn(data.user, data.password);
+        if (localStorage.getItem('user') == loginfodata_1.AUTH["user_auth"] && localStorage.getItem('pw') == loginfodata_1.AUTH["pw_auth"]) {
+            window.location.href = '/logout';
+            console.log("logged in");
+        }
+        else {
+            window.location.href = '/login';
+        }
     };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'login-page',
-            templateUrl: 'app/html/login-page.html'
+            templateUrl: 'app/html/login-page.html',
+            providers: [http_1.HTTP_PROVIDERS, authservice_1.AuthService]
         }), 
-        __metadata('design:paramtypes', [common_1.FormBuilder])
+        __metadata('design:paramtypes', [authservice_1.AuthService, common_1.FormBuilder])
     ], LoginComponent);
     return LoginComponent;
 }());

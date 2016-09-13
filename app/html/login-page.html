@@ -1,7 +1,7 @@
-<div class="content">
+<div class="content" id="content">
 <h3>Login</h3>
-<form [ngFormModel]="loginForm" (submit)="doLogin(loginForm.value)">
-    <input ngControl="email" type="email" placeholder="Your email">
+<form [ngFormModel]="loginForm" (submit)="login(loginForm.value)">
+    <input ngControl="user" type="text" placeholder="Your name">
     <input ngControl="password" type="password" placeholder="Your password">
   <button class='button' type="submit">Log in</button>
 </form>

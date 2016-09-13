@@ -13,12 +13,18 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require("rxjs/add/operator/map");
 require('rxjs/add/operator/mergeMap');
+var loginfodata_1 = require('./loginfodata');
 var AddQuestionsComponent = (function () {
     function AddQuestionsComponent(httpService) {
         this.httpService = httpService;
         this.notification = '';
         this.addquestionbox = '';
     }
+    AddQuestionsComponent.prototype.ngOnInit = function () {
+        if (localStorage.getItem('user') != loginfodata_1.AUTH["user_auth"] || localStorage.getItem('pw') != loginfodata_1.AUTH["pw_auth"]) {
+            window.location.assign('/login');
+        }
+    };
     // receiving key event
     AddQuestionsComponent.prototype.eventHandler = function (key) {
         var _this = this;
