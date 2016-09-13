@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var home_component_1 = require('./home.component');
 var askwatson_component_1 = require('./askwatson.component');
 var addquestions_component_1 = require('./addquestions.component');
@@ -16,8 +17,6 @@ var highscore_component_1 = require('./highscore.component');
 var whoami_component_1 = require('./whoami.component');
 var login_component_1 = require('./login.component');
 var logout_component_1 = require('./logout.component');
-var signup_component_1 = require('./signup.component');
-var router_deprecated_1 = require('@angular/router-deprecated');
 var AppComponent = (function () {
     function AppComponent() {
         this.title = "Marvel QA";
@@ -36,7 +35,6 @@ var AppComponent = (function () {
             { path: '/highscore', name: 'Highscore', component: highscore_component_1.HighscoreComponent },
             { path: '/quiz', name: 'Who_am_i', component: whoami_component_1.WhoAmIComponent },
             { path: '/login', name: 'Login', component: login_component_1.LoginComponent },
-            { path: '/signup', name: 'Signup', component: signup_component_1.SignupComponent },
             { path: '/logout', name: 'Logout', component: logout_component_1.LogoutComponent }
         ]), 
         __metadata('design:paramtypes', [])

@@ -1,4 +1,5 @@
 import { Component }       from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { HomeComponent } from './home.component';
 import { AskWatsonComponent } from './askwatson.component';
 import { AddQuestionsComponent } from './addquestions.component';
@@ -6,8 +7,7 @@ import { HighscoreComponent } from './highscore.component';
 import { WhoAmIComponent } from './whoami.component';
 import { LoginComponent } from './login.component';
 import { LogoutComponent } from './logout.component';
-import { SignupComponent } from './signup.component';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+
 
 
 @Component({
@@ -33,7 +33,6 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
         {path: '/highscore',name: 'Highscore',component: HighscoreComponent},
         {path: '/quiz',name: 'Who_am_i',component: WhoAmIComponent},
         {path: '/login',name: 'Login',component: LoginComponent},
-        {path: '/signup',name: 'Signup',component: SignupComponent},
         {path: '/logout',name: 'Logout',component: LogoutComponent}
 ])
 
