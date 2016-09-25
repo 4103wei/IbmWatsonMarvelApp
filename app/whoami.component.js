@@ -43,7 +43,7 @@ var WhoAmIComponent = (function () {
     /* This method uses the httpService to do a GET request to update the leaderboard.
      */
     WhoAmIComponent.prototype.addScore = function (name, score) {
-        this.httpService.add_highscore(name, score).map(function (res) { return res.json(); }).subscribe();
+        this.httpService.add_highscore(name, score).map(function (res) { return res.json(); }).subscribe(function (res) { return console.log('Completed'); }, function (err) { return console.log('Completed'); });
     };
     /* Start a timer, the game starts after the countdown.
      */
@@ -57,6 +57,9 @@ var WhoAmIComponent = (function () {
      */
     WhoAmIComponent.prototype.qinit = function (id) {
         var _this = this;
+        var audio = new Audio();
+        audio.src = "assets/button-3.mp3";
+        audio.play();
         if (id > this.maxquestioncount) {
             // Game ended, evaluation
             // score

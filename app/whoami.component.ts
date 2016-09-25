@@ -47,7 +47,10 @@ export class WhoAmIComponent {
     /* This method uses the httpService to do a GET request to update the leaderboard.
      */
     addScore(name, score){
-        this.httpService.add_highscore(name, score).map(res => res.json()).subscribe();
+        this.httpService.add_highscore(name, score).map(res => res.json()).subscribe(
+            res => console.log('Completed'),
+            err => console.log('Completed'),
+        );
     }
     
     /* Start a timer, the game starts after the countdown. 
@@ -62,6 +65,12 @@ export class WhoAmIComponent {
      * param: int id - id of the question&answer set that have to be initialized 
      */
     qinit(id){
+
+        var audio = new Audio();
+        audio.src = "assets/button-3.mp3";
+        audio.play();
+
+        
         if (id > this.maxquestioncount){
             // Game ended, evaluation
             

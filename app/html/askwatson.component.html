@@ -7,7 +7,8 @@
     
     <div class='ask_watson_question'>{{view_question}}</div>
     <br>
-    <div class='ask_watson_answer' id='ask_watson_answer'></div>
+    <div class='ask_watson_answer'>{{view_answer}}</div>
+    
    
     <br><br>
     
@@ -15,5 +16,5 @@
         <input class='askWatsonBox' [(ngModel)]='question' type=text placeholder="Your Question" (keypress)="eventHandler($event.keyCode)">
     </form>
         
-    </center>
+         </center>
 </div>

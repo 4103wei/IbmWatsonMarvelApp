@@ -204,6 +204,19 @@ nav a.router-link-active {
 
 #button_startgame{
     font-size: 20px;
-
+    width: 400px !important;
+    height: 100px !important;
 }
 
+.namebox{
+    width: 400px;   
+}
+
+.button{
+    min-width:  200px;
+    min-height: 50px;
+}
+
+#question{
+    font-size: 30px;   
+}
