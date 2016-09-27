@@ -1,6 +1,8 @@
-<div class="content">
+<div class="content" id="addquestioncontent">
 
 <h3>Add Questions</h3>
-<div class='notif'>{{notification}}</div>    
+  
 <input class='addQuestionBox' [(ngModel)]="addquestionbox" type=text placeholder="Your Question" (keypress)="eventHandler($event.keyCode)">
-</div>
+    
+<button class='button' id='addquestionbutton' (click)='eventHandler(13)'>Next</button>    
+</div>  

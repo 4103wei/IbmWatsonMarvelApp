@@ -82,11 +82,11 @@ var WhoAmIComponent = (function () {
         }
         else {
             this.rannum = Math.floor(Math.random() * 4); // {0,1,2,3}
-            document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
-            <button class='button' id='ans0'></button>\
-            <button class='button' id='ans1'></button>\
-            <button class='button' id='ans2'></button>\
-            <button class='button' id='ans3'></button></center>";
+            document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div class='question' id=question></div><br>\
+            <button class='button answerbutton' id='ans0'></button>\
+            <button class='button answerbutton' id='ans1'></button>\
+            <button class='button answerbutton' id='ans2'></button>\
+            <button class='button answerbutton' id='ans3'></button></center>";
             document.getElementById("ans0").onclick = function () { _this.givenanswers.push(document.getElementById("ans0").innerHTML); _this.qinit(id + 1); };
             document.getElementById("ans1").onclick = function () { _this.givenanswers.push(document.getElementById("ans1").innerHTML); _this.qinit(id + 1); };
             document.getElementById("ans2").onclick = function () { _this.givenanswers.push(document.getElementById("ans2").innerHTML); _this.qinit(id + 1); };

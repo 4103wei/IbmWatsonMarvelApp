@@ -51,6 +51,14 @@ var HTTPService = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         return this.http.get(this.url + '/Marvel-QA-be/watsonqa/sql/addingScore', options);
     };
+    /* http GET to request possible answers to a question
+     */
+    HTTPService.prototype.get_possible_answers = function (question) {
+        var headers = new http_1.Headers();
+        headers.append('Question', question);
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.get(this.url + '/Marvel-QA-be/watsonqa/submit/testPipeline', options);
+    };
     HTTPService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

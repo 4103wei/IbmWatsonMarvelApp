@@ -49,7 +49,7 @@ export class WhoAmIComponent {
     addScore(name, score){
         this.httpService.add_highscore(name, score).map(res => res.json()).subscribe(
             res => console.log('Completed'),
-            err => console.log('Completed'),
+            err => console.log('Completed')
         );
     }
     
@@ -94,11 +94,11 @@ export class WhoAmIComponent {
             this.addScore(this.namebox, this.score.toString()); // add score to the leaderboard
         }else{
             this.rannum = Math.floor(Math.random() * 4); // {0,1,2,3}
-            document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div id=question></div><br>\
-            <button class='button' id='ans0'></button>\
-            <button class='button' id='ans1'></button>\
-            <button class='button' id='ans2'></button>\
-            <button class='button' id='ans3'></button></center>";
+            document.getElementById("gamewindow").innerHTML = "<center><div id=question_num></div><br><div class='question' id=question></div><br>\
+            <button class='button answerbutton' id='ans0'></button>\
+            <button class='button answerbutton' id='ans1'></button>\
+            <button class='button answerbutton' id='ans2'></button>\
+            <button class='button answerbutton' id='ans3'></button></center>";
             document.getElementById("ans0").onclick= ()=>{this.givenanswers.push(document.getElementById("ans0").innerHTML);this.qinit(id+1);};
             document.getElementById("ans1").onclick= ()=>{this.givenanswers.push(document.getElementById("ans1").innerHTML);this.qinit(id+1);};
             document.getElementById("ans2").onclick= ()=>{this.givenanswers.push(document.getElementById("ans2").innerHTML);this.qinit(id+1);};

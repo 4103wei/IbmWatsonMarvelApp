@@ -53,4 +53,14 @@ export class HTTPService{
         var options = new RequestOptions({ headers: headers });
         return this.http.get(this.url + '/Marvel-QA-be/watsonqa/sql/addingScore', options) ;
     }
+    
+    
+    /* http GET to request possible answers to a question
+     */
+    get_possible_answers(question){
+        var headers = new Headers();
+        headers.append('Question', question);
+        var options = new RequestOptions({ headers: headers });
+        return this.http.get(this.url + '/Marvel-QA-be/watsonqa/submit/testPipeline', options) ;
+    }
 }
