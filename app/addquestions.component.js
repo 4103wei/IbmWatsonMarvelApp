@@ -32,7 +32,7 @@ var AddQuestionsComponent = (function () {
         if (key == 13 && this.addquestionbox != '') {
             document.getElementById("addquestioncontent").innerHTML = "<center><div id ='delay'>Loading...</div></center>";
             this.httpService.get_possible_answers(this.addquestionbox).map(function (res) { return res.json(); }).subscribe(function (res) {
-                console.log(res);
+                //console.log(res);
                 _this.specifyPage(res);
             }, function (err) { return console.log("Question could not be submitted."); }, function () { return console.log('Completed'); });
         }
@@ -48,6 +48,11 @@ var AddQuestionsComponent = (function () {
                 "<button class='button' id='clearbutton'>Clear</button> " +
                 "<button class='button' id='addbutton'>Add Question</button>" +
                 "</div><hr>";
+        if (jsonobj["length"] == 0) {
+            document.getElementById("addquestioncontent").innerHTML =
+                document.getElementById("addquestioncontent").innerHTML +
+                    "No entities could be extracted from your question, please try another question or consider rewording your question. Press 'Cancel' to return.";
+        }
         // go through every sentenceAnswers
         for (var i = 0; i < jsonobj["length"]; i++) {
             // extracting each obj info
@@ -108,6 +113,7 @@ var AddQuestionsComponent = (function () {
             if (_this.selected.length == 4) {
                 var jsonstringresult_1 = '{"question":"' + _this.addquestionbox + '","correct":"' + document.getElementById(_this.selected[0]).innerHTML + '","wrong_1":"' + document.getElementById(_this.selected[1]).innerHTML + '","wrong_2":"' + document.getElementById(_this.selected[2]).innerHTML + '","wrong_3":"' + document.getElementById(_this.selected[3]).innerHTML + '"}';
                 _this.httpService.add_question_to_db(jsonstringresult_1).map(function (res) { return res.json(); }).subscribe(function (res) { return console.log(jsonstringresult_1 + " added"); }, function (err) { return console.log(jsonstringresult_1 + " added"); }, function () { return console.log('Completed'); });
+                location.reload();
             }
         };
     };

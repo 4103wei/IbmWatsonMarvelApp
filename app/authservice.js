@@ -10,29 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var md5_1 = require('./md5');
 var AuthService = (function () {
     function AuthService(_http) {
         this._http = _http;
     }
     AuthService.prototype.loginfn = function (user, pw) {
-        /*
-        this.isLoggedin = false;
-        var headers = new Headers();
-        var creds = 'name=' + usercreds.username + '&password=' + usercreds.password;
-        headers.append('Content-Type', 'application/X-www-form-urlencoded');
-        
-        return new Promise((resolve) => {
-        this._http.post('http://localhost:3333/authenticate', creds, {headers: headers}).subscribe((data) => {
-            if(data.json().success) {
-                window.localStorage.setItem('auth_key', data.json().token);
-                this.isLoggedin = true;}
-                resolve(this.isLoggedin)
-            }
-        )
-        })
-        */
-        window.localStorage.setItem('user', user);
-        window.localStorage.setItem('pw', pw);
+        var _this = this;
+        var creds = 'name=' + user + '&password=' + pw;
+        var headers = new http_1.Headers();
+        headers.append('Authentication', creds);
+        var options = new RequestOptions({ headers: headers });
+        this.http.get(this.url + '/Marvel-QA-be/watsonqa/sql/addingScore', options).map(res).subscribe(function (res) {
+        }, function (err) { return _this.status = 'Could not initialize the questions.'; }, function () { return console.log('Completed'); });
+        ;
+        window.localStorage.setItem('Authentication', md5_1.md5(creds));
     };
     AuthService = __decorate([
         core_1.Injectable(), 

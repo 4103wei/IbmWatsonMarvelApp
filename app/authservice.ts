@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import {md5} from './md5';
+
 
 @Injectable()
 export class AuthService {
@@ -9,23 +11,23 @@ export class AuthService {
     }
     
     loginfn(user, pw) {
-        /*
-        this.isLoggedin = false;
+        var creds = 'name=' + user + '&password=' + pw;
         var headers = new Headers();
-        var creds = 'name=' + usercreds.username + '&password=' + usercreds.password;
-        headers.append('Content-Type', 'application/X-www-form-urlencoded');
+        headers.append('Authentication', creds);
+        var options = new RequestOptions({ headers: headers });
+        this.http.get(this.url + '/Marvel-QA-be/watsonqa/sql/addingScore', options).map(res).subscribe(
+            res => {
+            
+            
+            },
+            err => this.status = 'Could not initialize the questions.',
+            () => console.log('Completed')
+        ); ;
         
-        return new Promise((resolve) => {
-        this._http.post('http://localhost:3333/authenticate', creds, {headers: headers}).subscribe((data) => {
-            if(data.json().success) {
-                window.localStorage.setItem('auth_key', data.json().token);
-                this.isLoggedin = true;}
-                resolve(this.isLoggedin)
-            }
-        )
-        })
-        */
-        window.localStorage.setItem('user', user);
-        window.localStorage.setItem('pw', pw);
+        
+        
+        
+        window.localStorage.setItem('Authentication', md5(creds));
+
     }
 }

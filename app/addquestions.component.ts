@@ -36,7 +36,7 @@ export class AddQuestionsComponent {
             document.getElementById("addquestioncontent").innerHTML = "<center><div id ='delay'>Loading...</div></center>";
             this.httpService.get_possible_answers(this.addquestionbox).map(res => res.json()).subscribe(
                 res => {
-                    console.log(res);
+                    //console.log(res);
                     this.specifyPage(res);
                 },
                 err => console.log("Question could not be submitted."),
@@ -62,11 +62,15 @@ export class AddQuestionsComponent {
             "</div><hr>";  
         
         
+        if (jsonobj["length"] == 0){
+            document.getElementById("addquestioncontent").innerHTML = 
+            document.getElementById("addquestioncontent").innerHTML +
+            "No entities could be extracted from your question, please try another question or consider rewording your question. Press 'Cancel' to return.";
+        }
+        
+        
         // go through every sentenceAnswers
         for(let i = 0; i < jsonobj["length"]; i++){
-            
-
-            
             // extracting each obj info
             let confidence = jsonobj["sentenceAnswers"][i]["confidence"];
             let namedEntities = jsonobj["sentenceAnswers"][i]["namedEntities"]; // Array
@@ -147,6 +151,7 @@ export class AddQuestionsComponent {
                     err => console.log(jsonstringresult + " added"),
                     () => console.log('Completed')
                  );
+                location.reload();
             }
         };
         
